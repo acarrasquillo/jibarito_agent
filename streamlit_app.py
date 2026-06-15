@@ -64,6 +64,27 @@ if not BEARER_TOKEN:
 # Initialize session state for conversation history
 if "messages" not in st.session_state:
     st.session_state.messages = []
+if "selected_question" not in st.session_state:
+    st.session_state.selected_question = None
+
+# Render sidebar FIRST to capture button clicks
+with st.sidebar:
+    st.markdown("### 💡 Example Questions")
+    st.markdown("Click any to ask:")
+
+    sample_questions = [
+        "How many tomatoes were grown in Puerto Rico in 2022?",
+        "What should I not plant next to tomatoes?",
+        "What should I plant after tomatoes?",
+        "If I planted tomatoes today, when can I harvest them?",
+        "What crops are grown in Hawaii?",
+        "What pests attack peppers?",
+        "¿Qué cultivos se producen en Puerto Rico?"
+    ]
+
+    for question in sample_questions:
+        if st.button(question, key=f"sidebar_{question}", use_container_width=True):
+            st.session_state.selected_question = question
 
 # Display conversation history
 for message in st.session_state.messages:
@@ -74,7 +95,12 @@ for message in st.session_state.messages:
 # Initialize prompt variable
 prompt = None
 
-# Chat input
+# Check if a sidebar question was selected
+if st.session_state.selected_question:
+    prompt = st.session_state.selected_question
+    st.session_state.selected_question = None
+
+# Chat input (can override sidebar selection)
 user_input = st.chat_input("Ask about crops, companion planting, pests, or production...")
 if user_input:
     prompt = user_input
@@ -148,25 +174,8 @@ if prompt:
                 error_msg = f"❌ Unexpected error: {str(e)}"
                 st.error(error_msg)
 
-# Sidebar with information
+# Continue sidebar with information
 with st.sidebar:
-    st.markdown("### 💡 Example Questions")
-    st.markdown("Click any to ask:")
-
-    sample_questions = [
-        "How many tomatoes were grown in Puerto Rico in 2022?",
-        "What should I not plant next to tomatoes?",
-        "What should I plant after tomatoes?",
-        "If I planted tomatoes today, when can I harvest them?",
-        "What crops are grown in Hawaii?",
-        "What pests attack peppers?",
-        "¿Qué cultivos se producen en Puerto Rico?"
-    ]
-
-    for question in sample_questions:
-        if st.button(question, key=f"sidebar_{question}", use_container_width=True):
-            prompt = question
-
     st.divider()
 
     st.markdown("### About Jibarito")
