@@ -10,6 +10,47 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# Add sidebar toggle indicator and styling
+st.markdown("""
+<style>
+/* Sidebar toggle button - make it super visible */
+[data-testid="stSidebarNav"] {
+    background: linear-gradient(135deg, #1F6B3A 0%, #164F2B 100%) !important;
+    border-radius: 12px !important;
+    padding: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 4px 12px rgba(31, 107, 58, 0.2) !important;
+}
+
+[data-testid="stSidebarNav"] button {
+    background-color: transparent !important;
+    color: white !important;
+    border: none !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    padding: 0.6rem 1rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+[data-testid="stSidebarNav"] button:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    transform: scale(1.05) !important;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-testid="stSidebarNav"] button:active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    transform: scale(0.98) !important;
+}
+</style>
+<div style="text-align: center; color: #94A3B8; font-size: 0.75rem; margin-bottom: 0.5rem;">
+    <strong>👆 Click above to toggle menu</strong>
+</div>
+""", unsafe_allow_html=True)
+
 # Inject custom CSS theme
 try:
     with open(".streamlit/custom_theme.css") as css_file:
@@ -118,21 +159,47 @@ except FileNotFoundError:
         color: var(--text-secondary) !important;
     }
 
-    /* Sidebar toggle button styling */
-    [data-testid="stSidebarNav"] button {
+    /* Actual sidebar toggle button (hamburger menu) */
+    [aria-label="Sidebar"] {
         background-color: var(--green-primary) !important;
         color: white !important;
         border: 2px solid var(--green-primary) !important;
         border-radius: 8px !important;
-        padding: 0.5rem 1rem !important;
-        font-weight: 600 !important;
-        transition: all 0.2s ease !important;
+        padding: 0.6rem 0.8rem !important;
+        font-weight: 700 !important;
+        transition: all 0.3s ease !important;
+        font-size: 1.1rem !important;
     }
 
-    [data-testid="stSidebarNav"] button:hover {
+    [aria-label="Sidebar"]:hover {
         background-color: var(--green-hover) !important;
         border-color: var(--green-hover) !important;
-        transform: translateX(2px) !important;
+        box-shadow: 0 4px 12px rgba(31, 107, 58, 0.3) !important;
+        transform: scale(1.05) !important;
+    }
+
+    /* Alternative selector for sidebar toggle */
+    button[kind="secondary"][data-testid*="Sidebar"],
+    button[aria-label*="toggle"] {
+        background-color: var(--green-primary) !important;
+        color: white !important;
+        border: 2px solid var(--green-primary) !important;
+        border-radius: 8px !important;
+        padding: 0.6rem 0.8rem !important;
+        transition: all 0.3s ease !important;
+    }
+
+    button[aria-label*="toggle"]:hover {
+        background-color: var(--green-hover) !important;
+        box-shadow: 0 4px 12px rgba(31, 107, 58, 0.3) !important;
+    }
+
+    /* Stitch the button to be more visible */
+    [data-testid="stSidebarNav"] {
+        background: linear-gradient(to right, var(--green-primary), var(--green-forest)) !important;
+        border-radius: 8px !important;
+        padding: 0.25rem !important;
+        margin-bottom: 1rem !important;
     }
 
     /* Headers */
