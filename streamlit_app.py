@@ -98,6 +98,21 @@ except FileNotFoundError:
         }
     }
 
+    /* Desktop: Auto-expand sidebar on larger screens */
+    @media (min-width: 769px) {
+        /* Sidebar visible and expanded by default on desktop */
+        [data-testid="stSidebar"] {
+            transform: translateX(0) !important;
+            visibility: visible !important;
+            min-width: 320px;
+        }
+
+        /* Ensure sidebar content is visible */
+        [data-testid="stSidebarContent"] {
+            visibility: visible !important;
+        }
+    }
+
     /* Caption styling - FIX for dark background */
     .stCaption {
         color: var(--text-secondary) !important;
