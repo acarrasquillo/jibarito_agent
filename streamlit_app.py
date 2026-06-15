@@ -71,6 +71,9 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"], avatar=avatar):
         st.markdown(message["content"])
 
+# Initialize prompt variable
+prompt = None
+
 # Show example questions if chat is empty
 if not st.session_state.messages:
     st.markdown("### 💡 Example questions:")
@@ -81,11 +84,10 @@ if not st.session_state.messages:
         "What should I plant after tomatoes?",
         "If I planted tomatoes today, when can I harvest them?",
         "What crops are grown in Hawaii?",
-        "What pests attack plantains?",
+        "What pests attack peppers?",
         "¿Qué cultivos se producen en Puerto Rico?"
     ]
 
-    prompt = None
     for question in sample_questions:
         if st.button(question, key=question, use_container_width=True):
             prompt = question
