@@ -74,25 +74,7 @@ for message in st.session_state.messages:
 # Initialize prompt variable
 prompt = None
 
-# Show example questions if chat is empty
-if not st.session_state.messages:
-    st.markdown("### 💡 Example questions:")
-
-    sample_questions = [
-        "How many tomatoes were grown in Puerto Rico in 2022?",
-        "What should I not plant next to tomatoes?",
-        "What should I plant after tomatoes?",
-        "If I planted tomatoes today, when can I harvest them?",
-        "What crops are grown in Hawaii?",
-        "What pests attack peppers?",
-        "¿Qué cultivos se producen en Puerto Rico?"
-    ]
-
-    for question in sample_questions:
-        if st.button(question, key=question, use_container_width=True):
-            prompt = question
-
-# Chat input (shown even if samples exist, allows direct typing)
+# Chat input
 user_input = st.chat_input("Ask about crops, companion planting, pests, or production...")
 if user_input:
     prompt = user_input
@@ -168,6 +150,25 @@ if prompt:
 
 # Sidebar with information
 with st.sidebar:
+    st.markdown("### 💡 Example Questions")
+    st.markdown("Click any to ask:")
+
+    sample_questions = [
+        "How many tomatoes were grown in Puerto Rico in 2022?",
+        "What should I not plant next to tomatoes?",
+        "What should I plant after tomatoes?",
+        "If I planted tomatoes today, when can I harvest them?",
+        "What crops are grown in Hawaii?",
+        "What pests attack peppers?",
+        "¿Qué cultivos se producen en Puerto Rico?"
+    ]
+
+    for question in sample_questions:
+        if st.button(question, key=f"sidebar_{question}", use_container_width=True):
+            prompt = question
+
+    st.divider()
+
     st.markdown("### About Jibarito")
     st.markdown("""
     **Jibarito** (ji-bah-REE-to) = Puerto Rican farmer/campesino
@@ -193,6 +194,8 @@ with st.sidebar:
     st.markdown("### Languages")
     st.markdown("English & Spanish 🇺🇸 🇵🇷")
 
-    if st.button("Clear Chat History"):
+    st.divider()
+
+    if st.button("Clear Chat History", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
