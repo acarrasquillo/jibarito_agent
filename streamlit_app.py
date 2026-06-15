@@ -118,6 +118,23 @@ except FileNotFoundError:
         color: var(--text-secondary) !important;
     }
 
+    /* Sidebar toggle button styling */
+    [data-testid="stSidebarNav"] button {
+        background-color: var(--green-primary) !important;
+        color: white !important;
+        border: 2px solid var(--green-primary) !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
+    }
+
+    [data-testid="stSidebarNav"] button:hover {
+        background-color: var(--green-hover) !important;
+        border-color: var(--green-hover) !important;
+        transform: translateX(2px) !important;
+    }
+
     /* Headers */
     h1 { color: var(--text-primary) !important; }
     h2 { color: var(--text-primary) !important; }
@@ -131,8 +148,8 @@ except FileNotFoundError:
     </style>
     """, unsafe_allow_html=True)
 
-# Header with logo
-col1, col2 = st.columns([1, 5])
+# Header with logo and sidebar toggle button
+col1, col2, col3 = st.columns([1, 5, 1])
 with col1:
     try:
         st.image("images/jibarito_simple_logo.svg", width=60)
@@ -142,6 +159,33 @@ with col1:
 with col2:
     st.title("Jibarito")
     st.markdown('<p style="color: #CBD5E1; font-size: 0.875rem; margin-top: -0.5rem;">Agricultural Intelligence for the US Caribbean & Tropical Regions</p>', unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <style>
+    .sidebar-toggle-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        background-color: #1F6B3A;
+        color: white;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        white-space: nowrap;
+    }
+    .sidebar-toggle-btn:hover {
+        background-color: #2D8A4E;
+    }
+    </style>
+    <div style="margin-top: 1.5rem; text-align: center;">
+        <p style="color: #CBD5E1; font-size: 0.75rem; margin-bottom: 0.25rem;">Toggle for:</p>
+        <p style="color: #94A3B8; font-size: 0.75rem;">☰ Examples & Help</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Configuration
 AGENT_ENDPOINT = st.secrets.get("agent_endpoint", "")
@@ -200,6 +244,13 @@ if "selected_question" not in st.session_state:
 
 # Render sidebar FIRST to capture button clicks
 with st.sidebar:
+    st.markdown("""
+    <div style="background-color: #1F6B3A; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; text-align: center;">
+        <p style="color: white; font-weight: 600; margin: 0;">📚 Help & Examples</p>
+        <p style="color: #E2F8F1; font-size: 0.875rem; margin: 0.5rem 0 0 0;">Click questions below or clear chat to start fresh</p>
+    </div>
+    """, unsafe_allow_html=True)
+
     if st.button("🗑️ Clear Chat History", key="clear_top", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
