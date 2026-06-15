@@ -10,45 +10,65 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Add sidebar toggle indicator and styling
+# Add sidebar toggle styling with inline label
 st.markdown("""
 <style>
-/* Sidebar toggle button - make it super visible */
-[data-testid="stSidebarNav"] {
-    background: linear-gradient(135deg, #1F6B3A 0%, #164F2B 100%) !important;
-    border-radius: 12px !important;
-    padding: 0.5rem !important;
-    margin-bottom: 1rem !important;
-    box-shadow: 0 4px 12px rgba(31, 107, 58, 0.2) !important;
+/* Collapsed control area - where hamburger menu is */
+[data-testid="collapsedControl"] {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 !important;
 }
 
-[data-testid="stSidebarNav"] button {
-    background-color: transparent !important;
+/* Hamburger toggle button styling */
+[data-testid="collapsedControl"] button {
+    background: linear-gradient(135deg, #1F6B3A 0%, #164F2B 100%) !important;
+    border-radius: 8px !important;
+    padding: 0.6rem 0.8rem !important;
     color: white !important;
     border: none !important;
-    font-size: 1.2rem !important;
+    font-size: 1.1rem !important;
     font-weight: 700 !important;
-    padding: 0.6rem 1rem !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
-    width: 100% !important;
-    text-align: center !important;
+    box-shadow: 0 2px 8px rgba(31, 107, 58, 0.2) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
-[data-testid="stSidebarNav"] button:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    transform: scale(1.05) !important;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+[data-testid="collapsedControl"] button:hover {
+    background: linear-gradient(135deg, #2D8A4E 0%, #1F6B3A 100%) !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 4px 12px rgba(31, 107, 58, 0.3) !important;
 }
 
-[data-testid="stSidebarNav"] button:active {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    transform: scale(0.98) !important;
+[data-testid="collapsedControl"] button:active {
+    transform: scale(0.95) !important;
+}
+
+/* Label next to hamburger */
+[data-testid="collapsedControl"]::after {
+    content: "Examples & Help";
+    color: #CBD5E1;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-left: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    background-color: rgba(31, 107, 58, 0.15);
+    border-radius: 6px;
+    border: 1px solid rgba(31, 107, 58, 0.3);
+}
+
+/* Mobile: hide label if too cramped */
+@media (max-width: 480px) {
+    [data-testid="collapsedControl"]::after {
+        display: none;
+    }
 }
 </style>
-<div style="text-align: center; color: #94A3B8; font-size: 0.75rem; margin-bottom: 0.5rem;">
-    <strong>👆 Click above to toggle menu</strong>
-</div>
 """, unsafe_allow_html=True)
 
 # Inject custom CSS theme
@@ -215,8 +235,8 @@ except FileNotFoundError:
     </style>
     """, unsafe_allow_html=True)
 
-# Header with logo and sidebar toggle button
-col1, col2, col3 = st.columns([1, 5, 1])
+# Header with logo
+col1, col2 = st.columns([1, 5])
 with col1:
     try:
         st.image("images/jibarito_simple_logo.svg", width=60)
@@ -226,33 +246,6 @@ with col1:
 with col2:
     st.title("Jibarito")
     st.markdown('<p style="color: #CBD5E1; font-size: 0.875rem; margin-top: -0.5rem;">Agricultural Intelligence for the US Caribbean & Tropical Regions</p>', unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <style>
-    .sidebar-toggle-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.5rem 1rem;
-        background-color: #1F6B3A;
-        color: white;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        white-space: nowrap;
-    }
-    .sidebar-toggle-btn:hover {
-        background-color: #2D8A4E;
-    }
-    </style>
-    <div style="margin-top: 1.5rem; text-align: center;">
-        <p style="color: #CBD5E1; font-size: 0.75rem; margin-bottom: 0.25rem;">Toggle for:</p>
-        <p style="color: #94A3B8; font-size: 0.75rem;">☰ Examples & Help</p>
-    </div>
-    """, unsafe_allow_html=True)
 
 # Configuration
 AGENT_ENDPOINT = st.secrets.get("agent_endpoint", "")
