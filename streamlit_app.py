@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="Jibarito - Agricultural Intelligence",
     page_icon="🌾",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Inject custom CSS theme
@@ -58,6 +58,11 @@ except FileNotFoundError:
         color: white !important;
     }
 
+    /* Sidebar styling - mobile responsive */
+    [data-testid="stSidebar"] {
+        min-width: 300px;
+    }
+
     /* Sidebar button styling */
     [data-testid="stSidebar"] .stButton > button {
         background-color: #182235 !important;
@@ -68,6 +73,29 @@ except FileNotFoundError:
     [data-testid="stSidebar"] .stButton > button:hover {
         background-color: var(--green-primary) !important;
         color: white !important;
+    }
+
+    /* Mobile: Sidebar toggle button styling */
+    [data-testid="stSidebarNav"] {
+        background-color: var(--green-primary) !important;
+        border-radius: 8px !important;
+    }
+
+    /* Mobile: Hide sidebar on small screens by default, show toggle */
+    @media (max-width: 768px) {
+        [data-testid="stSidebar"] {
+            min-width: 280px;
+        }
+
+        /* Better spacing for mobile sidebar */
+        [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+            padding: 0.5rem;
+        }
+
+        /* Make buttons full width on mobile */
+        [data-testid="stSidebar"] .stButton > button {
+            width: 100%;
+        }
     }
 
     /* Caption styling - FIX for dark background */
