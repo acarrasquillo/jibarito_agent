@@ -67,7 +67,8 @@ if "messages" not in st.session_state:
 
 # Display conversation history
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
+    avatar = "👨‍🌾" if message["role"] == "user" else "🌾"
+    with st.chat_message(message["role"], avatar=avatar):
         st.markdown(message["content"])
 
 # Chat input
@@ -76,11 +77,11 @@ if prompt := st.chat_input("Ask about crops, companion planting, pests, or produ
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Display user message
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar="👨‍🌾"):
         st.markdown(prompt)
 
     # Get response from Aura Agent
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar="🌾"):
         with st.spinner("Thinking..."):
             try:
                 headers = {
@@ -123,7 +124,7 @@ if prompt := st.chat_input("Ask about crops, companion planting, pests, or produ
 
                 st.markdown(agent_response)
 
-                # Add assistant message to history
+                # Add assistant message to history (for persistence across reruns)
                 st.session_state.messages.append({
                     "role": "assistant",
                     "content": agent_response
