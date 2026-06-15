@@ -68,15 +68,20 @@ st.markdown("""
     transform: scale(0.95) !important;
 }
 
-/* Mobile: hide text on small screens, keep icon */
+/* Mobile: adjust sizing for small screens but keep text visible */
 @media (max-width: 480px) {
-    [data-testid="collapsedControl"] button::after {
-        content: "";
-        display: none;
+    [data-testid="collapsedControl"] button {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.75rem !important;
     }
 
-    [data-testid="collapsedControl"] button {
-        padding: 0.6rem 0.8rem !important;
+    [data-testid="collapsedControl"] button::after {
+        font-size: 0.7rem;
+    }
+
+    [data-testid="collapsedControl"] button svg {
+        width: 1rem !important;
+        height: 1rem !important;
     }
 }
 </style>
