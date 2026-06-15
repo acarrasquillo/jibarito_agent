@@ -1,0 +1,55 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F9F4"/>
+      <stop offset="0.55" stop-color="#EEF4EC"/>
+      <stop offset="1" stop-color="#E7EFE5"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1390 230) rotate(132) scale(780 420)">
+      <stop stop-color="#1F6B3A" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#1F6B3A" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.5" fill="#1F6B3A" opacity="0.13"/>
+    </pattern>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#0B2415" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#glow)"/>
+  <rect x="1130" y="50" width="670" height="430" fill="url(#dots)" opacity="0.65"/>
+
+  <!-- subtle contour lines -->
+  <g opacity="0.20" stroke="#1F6B3A" stroke-width="2" fill="none">
+    <path d="M-90 830C90 760 200 820 350 760C515 694 610 625 790 664C930 694 1010 789 1185 740C1340 697 1430 574 1620 612C1768 642 1840 737 2005 699"/>
+    <path d="M-100 895C90 818 215 884 370 823C540 756 623 696 782 724C965 757 1030 849 1210 803C1370 762 1445 644 1622 678C1785 710 1860 808 2005 760"/>
+    <path d="M-110 960C95 880 230 945 395 884C560 823 650 760 812 787C980 815 1060 914 1235 870C1412 826 1470 715 1648 748C1800 776 1878 870 2005 837"/>
+  </g>
+
+  <!-- knowledge graph accents -->
+  <g opacity="0.28" stroke="#1F6B3A" stroke-width="3">
+    <path d="M1252 220L1350 170L1465 242L1420 345L1298 332L1252 220Z"/>
+    <path d="M1350 170L1298 332M1465 242L1298 332M1252 220L1420 345"/>
+  </g>
+  <g fill="#1F6B3A" opacity="0.35">
+    <circle cx="1252" cy="220" r="10"/><circle cx="1350" cy="170" r="12"/><circle cx="1465" cy="242" r="11"/><circle cx="1420" cy="345" r="10"/><circle cx="1298" cy="332" r="13"/>
+  </g>
+
+  <!-- large decorative agriculture marks -->
+  <g opacity="0.10" fill="#1F6B3A">
+    <path d="M1700 705C1810 660 1880 712 1872 807C1748 821 1685 790 1700 705Z"/>
+    <path d="M270 160C385 118 480 190 454 310C330 305 258 257 270 160Z"/>
+    <path d="M116 640C188 602 254 632 260 702C180 716 118 696 116 640Z"/>
+  </g>
+
+  <!-- faint Puerto Rico island silhouette -->
+  <g transform="translate(600 350) scale(1.15)" opacity="0.13" filter="url(#softShadow)">
+    <path d="M44 112C92 87 152 77 214 74C291 70 366 48 451 52C552 56 650 70 744 62C824 55 897 72 966 101C1002 116 1022 141 1015 166C1008 190 970 202 921 199C841 193 786 218 706 219C616 219 565 201 476 216C398 229 317 220 246 233C169 248 105 233 52 207C7 185 2 139 44 112Z" fill="#1F6B3A"/>
+    <path d="M1080 197C1134 178 1191 186 1220 215C1183 242 1122 246 1074 228C1054 220 1058 205 1080 197Z" fill="#1F6B3A"/>
+  </g>
+
+  <!-- bottom fade for readable app content -->
+  <rect y="690" width="1920" height="390" fill="white" opacity="0.45"/>
+</svg>

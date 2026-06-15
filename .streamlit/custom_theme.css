@@ -1,0 +1,288 @@
+/* Jibarito Agent - Premium Dark Mode Theme */
+
+:root {
+    --bg-main: #0B1020;
+    --bg-secondary: #111827;
+    --bg-sidebar: #0F172A;
+    --bg-card: #182235;
+    --bg-chat: #1E293B;
+    --bg-input: #243044;
+
+    --green-primary: #1F6B3A;
+    --green-hover: #2D8A4E;
+    --green-forest: #164F2B;
+    --brown-coffee: #8B5A2B;
+    --gold-harvest: #D4A017;
+
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --text-placeholder: #64748B;
+    --border-color: rgba(255,255,255,0.08);
+}
+
+/* Main container background */
+.stApp {
+    background: linear-gradient(rgba(11,16,32,0.86), rgba(11,16,32,0.94)),
+                url('app/static/images/jibarito_background.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-primary);
+}
+
+/* Main content area */
+.main {
+    background: transparent;
+}
+
+/* Sidebar styling */
+[data-testid="stSidebar"] {
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+}
+
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    background: transparent;
+}
+
+/* Text styling */
+.stMarkdown {
+    color: var(--text-primary);
+}
+
+.stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Sidebar text */
+[data-testid="stSidebar"] .stMarkdown {
+    color: var(--text-primary);
+}
+
+[data-testid="stSidebar"] .stMarkdown p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* Chat messages */
+.stChatMessage {
+    background: transparent;
+}
+
+.stChatMessage [data-testid="stChatMessageContent"] {
+    background: var(--bg-chat);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    color: var(--text-primary);
+}
+
+.stChatMessage [data-testid="stChatMessageContent"] p {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Chat input */
+[data-testid="stChatInputContainer"] {
+    background: transparent;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+[data-testid="stChatInputContainer"] input {
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    font-size: 0.95rem !important;
+}
+
+[data-testid="stChatInputContainer"] input::placeholder {
+    color: var(--text-placeholder) !important;
+}
+
+[data-testid="stChatInputContainer"] input:focus {
+    border-color: var(--green-primary) !important;
+    box-shadow: 0 0 0 2px rgba(31, 107, 58, 0.15) !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.stButton > button:hover {
+    background-color: var(--green-primary);
+    color: white;
+    border-color: var(--green-primary);
+}
+
+.stButton > button:active {
+    background-color: var(--green-forest);
+}
+
+/* Sidebar buttons */
+[data-testid="stSidebar"] .stButton > button {
+    width: 100%;
+    background-color: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    background-color: var(--green-primary);
+    color: white;
+    border-color: var(--green-primary);
+    transform: translateX(2px);
+}
+
+/* Divider */
+.stDivider {
+    border-color: var(--border-color) !important;
+}
+
+/* Headers and titles */
+h1 {
+    color: var(--text-primary) !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    color: var(--text-primary) !important;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+h3 {
+    color: var(--text-secondary) !important;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+/* Links */
+a {
+    color: var(--green-primary) !important;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--green-hover) !important;
+    text-decoration: underline;
+}
+
+/* Code blocks */
+code {
+    background-color: var(--bg-card);
+    color: var(--gold-harvest);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 0.875rem;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Selection */
+::selection {
+    background-color: var(--green-primary);
+    color: white;
+}
+
+/* Error messages */
+.stAlert {
+    background-color: rgba(31, 107, 58, 0.1);
+    border: 1px solid rgba(31, 107, 58, 0.3);
+    border-radius: 8px;
+    color: var(--text-primary);
+}
+
+/* Success messages */
+.stSuccess {
+    background-color: rgba(31, 107, 58, 0.15);
+    border: 1px solid var(--green-primary);
+    color: #86EFAC;
+}
+
+/* Spinner */
+.stSpinner {
+    color: var(--green-primary);
+}
+
+/* Markdown tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+table tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+table th {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+table td {
+    color: var(--text-secondary);
+    padding: 12px;
+}
+
+table tr:hover {
+    background-color: rgba(31, 107, 58, 0.05);
+}
+
+/* Smooth transitions */
+* {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

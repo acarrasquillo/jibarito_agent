@@ -6,11 +6,25 @@ from datetime import datetime, timedelta
 st.set_page_config(
     page_title="Jibarito - Agricultural Intelligence",
     page_icon="🌾",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-st.title("🌾 Jibarito")
-st.subheader("Agricultural Intelligence for the US Caribbean & Tropical Regions")
+# Inject custom CSS theme
+with open(".streamlit/custom_theme.css") as css_file:
+    st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
+
+# Header with logo
+col1, col2 = st.columns([1, 5])
+with col1:
+    try:
+        st.image("images/jibarito_simple_logo.svg", width=60)
+    except:
+        st.markdown("🌾")
+
+with col2:
+    st.title("Jibarito")
+    st.caption("Agricultural Intelligence for the US Caribbean & Tropical Regions")
 
 # Configuration
 AGENT_ENDPOINT = st.secrets.get("agent_endpoint", "")
