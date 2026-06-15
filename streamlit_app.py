@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 st.set_page_config(
     page_title="Jibarito - Agricultural Intelligence",
@@ -14,16 +14,51 @@ st.subheader("Agricultural Intelligence for the US Caribbean & Tropical Regions"
 
 # Configuration
 AGENT_ENDPOINT = st.secrets.get("agent_endpoint", "")
-AGENT_BEARER_TOKEN = st.secrets.get("agent_bearer_token", "")
+NEO4J_CLIENT_ID = st.secrets.get("neo4j_client_id", "")
+NEO4J_CLIENT_SECRET = st.secrets.get("neo4j_client_secret", "")
 
-if not AGENT_ENDPOINT or not AGENT_BEARER_TOKEN:
+if not AGENT_ENDPOINT or not NEO4J_CLIENT_ID or not NEO4J_CLIENT_SECRET:
     st.error("""
     ⚠️ Missing configuration. Please set in `.streamlit/secrets.toml`:
     ```
     agent_endpoint = "https://api.neo4j.io/..."
-    agent_bearer_token = "your_token_here"
+    neo4j_client_id = "your_client_id"
+    neo4j_client_secret = "your_client_secret"
     ```
     """)
+    st.stop()
+
+@st.cache_data(ttl=3600)
+def get_bearer_token():
+    """Generate a new bearer token using OAuth2 client credentials flow"""
+    try:
+        token_response = requests.post(
+            "https://api.neo4j.io/oauth/token",
+            auth=(NEO4J_CLIENT_ID, NEO4J_CLIENT_SECRET),
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            data={"grant_type": "client_credentials"},
+            timeout=10
+        )
+        token_response.raise_for_status()
+
+        token_data = token_response.json()
+        access_token = token_data.get("access_token")
+
+        if access_token:
+            return access_token
+        else:
+            st.error(f"❌ No access token in response: {token_data}")
+            return None
+
+    except requests.exceptions.RequestException as e:
+        st.error(f"❌ Failed to generate bearer token: {str(e)}")
+        return None
+
+# Get fresh bearer token for this session
+BEARER_TOKEN = get_bearer_token()
+
+if not BEARER_TOKEN:
+    st.error("Unable to authenticate with Neo4j. Please check your credentials.")
     st.stop()
 
 # Initialize session state for conversation history
@@ -51,7 +86,7 @@ if prompt := st.chat_input("Ask about crops, companion planting, pests, or produ
                 headers = {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                    "Authorization": f"Bearer {AGENT_BEARER_TOKEN}"
+                    "Authorization": f"Bearer {BEARER_TOKEN}"
                 }
 
                 payload = {"input": prompt}
@@ -66,14 +101,25 @@ if prompt := st.chat_input("Ask about crops, companion planting, pests, or produ
 
                 result = response.json()
 
-                # Extract the agent's response
-                # The Aura Agent returns a structured JSON response
-                if "output" in result:
-                    agent_response = result["output"]
-                elif "answer" in result:
-                    agent_response = result["answer"]
-                else:
-                    agent_response = json.dumps(result, indent=2)
+                # Extract the agent's response from the structured JSON
+                agent_response = None
+
+                # Aura Agent returns: {"type": "message", "content": [...], ...}
+                if isinstance(result.get("content"), list):
+                    # Find the text content in the content array
+                    for item in result.get("content", []):
+                        if item.get("type") == "text":
+                            agent_response = item.get("text", "")
+                            break
+
+                # Fallback for other response formats
+                if not agent_response:
+                    if "output" in result:
+                        agent_response = result["output"]
+                    elif "answer" in result:
+                        agent_response = result["answer"]
+                    else:
+                        agent_response = "No response from agent"
 
                 st.markdown(agent_response)
 
