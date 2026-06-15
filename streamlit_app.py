@@ -51,15 +51,16 @@ st.markdown("""
 /* Label next to hamburger */
 [data-testid="collapsedControl"]::after {
     content: "Examples & Help";
-    color: #CBD5E1;
+    color: white;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     white-space: nowrap;
     margin-left: 0.5rem;
-    padding: 0.4rem 0.6rem;
-    background-color: rgba(31, 107, 58, 0.15);
+    padding: 0.5rem 0.8rem;
+    background: linear-gradient(135deg, #1F6B3A 0%, #164F2B 100%);
     border-radius: 6px;
-    border: 1px solid rgba(31, 107, 58, 0.3);
+    border: 1px solid #1F6B3A;
+    box-shadow: 0 2px 6px rgba(31, 107, 58, 0.25);
 }
 
 /* Mobile: hide label if too cramped */
