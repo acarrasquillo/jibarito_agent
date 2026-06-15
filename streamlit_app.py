@@ -15,27 +15,47 @@ st.markdown("""
 <style>
 /* Collapsed control area - where hamburger menu is */
 [data-testid="collapsedControl"] {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
     padding: 0 !important;
 }
 
-/* Hamburger toggle button styling */
+/* Hamburger toggle button styling - the actual SVG button */
+[data-testid="collapsedControl"] button[data-testid="baseButton-headerNoPadding"],
 [data-testid="collapsedControl"] button {
     background: linear-gradient(135deg, #1F6B3A 0%, #164F2B 100%) !important;
     border-radius: 8px !important;
-    padding: 0.6rem 0.8rem !important;
+    padding: 0.5rem 1rem !important;
     color: white !important;
     border: none !important;
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     box-shadow: 0 2px 8px rgba(31, 107, 58, 0.2) !important;
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    gap: 0.5rem !important;
+    min-width: auto !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+}
+
+/* SVG icon inside button */
+[data-testid="collapsedControl"] button svg {
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+    color: white !important;
+}
+
+/* Add text label inside button after SVG */
+[data-testid="collapsedControl"] button::after {
+    content: "Examples & Help";
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: white;
+    margin-left: 0.25rem;
 }
 
 [data-testid="collapsedControl"] button:hover {
@@ -48,25 +68,15 @@ st.markdown("""
     transform: scale(0.95) !important;
 }
 
-/* Label next to hamburger */
-[data-testid="collapsedControl"]::after {
-    content: "Examples & Help";
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    white-space: nowrap;
-    margin-left: 0.5rem;
-    padding: 0.5rem 0.8rem;
-    background: linear-gradient(135deg, #1F6B3A 0%, #164F2B 100%);
-    border-radius: 6px;
-    border: 1px solid #1F6B3A;
-    box-shadow: 0 2px 6px rgba(31, 107, 58, 0.25);
-}
-
-/* Mobile: hide label if too cramped */
+/* Mobile: hide text on small screens, keep icon */
 @media (max-width: 480px) {
-    [data-testid="collapsedControl"]::after {
+    [data-testid="collapsedControl"] button::after {
+        content: "";
         display: none;
+    }
+
+    [data-testid="collapsedControl"] button {
+        padding: 0.6rem 0.8rem !important;
     }
 }
 </style>
