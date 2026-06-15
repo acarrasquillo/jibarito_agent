@@ -71,8 +71,32 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"], avatar=avatar):
         st.markdown(message["content"])
 
-# Chat input
-if prompt := st.chat_input("Ask about crops, companion planting, pests, or production..."):
+# Show example questions if chat is empty
+if not st.session_state.messages:
+    st.markdown("### 💡 Example questions:")
+
+    sample_questions = [
+        "How many tomatoes were grown in Puerto Rico in 2022?",
+        "What should I not plant next to tomatoes?",
+        "What should I plant after tomatoes?",
+        "If I planted tomatoes today, when can I harvest them?",
+        "What crops are grown in Hawaii?",
+        "What pests attack plantains?",
+        "¿Qué cultivos se producen en Puerto Rico?"
+    ]
+
+    prompt = None
+    for question in sample_questions:
+        if st.button(question, key=question, use_container_width=True):
+            prompt = question
+
+# Chat input (shown even if samples exist, allows direct typing)
+user_input = st.chat_input("Ask about crops, companion planting, pests, or production...")
+if user_input:
+    prompt = user_input
+
+# Process user input/selected question
+if prompt:
     # Add user message to history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
