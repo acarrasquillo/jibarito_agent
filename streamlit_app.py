@@ -83,13 +83,11 @@ if "selected_question" not in st.session_state:
 
 # Render sidebar FIRST to capture button clicks
 with st.sidebar:
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.markdown("### 💡 Example Questions")
-    with col2:
-        if st.button("🗑️ Clear", key="clear_top", use_container_width=True):
-            st.session_state.messages = []
-            st.rerun()
+    st.markdown("### 💡 Example Questions")
+
+    if st.button("🗑️ Clear Chat History", key="clear_top", use_container_width=True):
+        st.session_state.messages = []
+        st.rerun()
 
     st.markdown("Click any to ask:")
 
