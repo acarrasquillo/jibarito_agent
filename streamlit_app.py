@@ -11,8 +11,82 @@ st.set_page_config(
 )
 
 # Inject custom CSS theme
-with open(".streamlit/custom_theme.css") as css_file:
-    st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
+try:
+    with open(".streamlit/custom_theme.css") as css_file:
+        st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
+except FileNotFoundError:
+    # Fallback inline CSS for Streamlit Cloud
+    st.markdown("""
+    <style>
+    /* Dark theme colors */
+    :root {
+        --text-primary: #F8FAFC;
+        --text-secondary: #CBD5E1;
+        --green-primary: #1F6B3A;
+    }
+
+    /* Main styling */
+    .stApp { color: var(--text-primary); }
+
+    /* Chat message styling */
+    .stChatMessage [data-testid="stChatMessageContent"] {
+        background-color: #1E293B !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        border-radius: 12px !important;
+    }
+
+    /* Input styling */
+    [data-testid="stChatInputContainer"] input {
+        background-color: #243044 !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        color: var(--text-primary) !important;
+    }
+
+    [data-testid="stChatInputContainer"] input::placeholder {
+        color: #64748B !important;
+    }
+
+    /* Button styling */
+    .stButton > button {
+        background-color: #182235 !important;
+        color: var(--text-primary) !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+    }
+
+    .stButton > button:hover {
+        background-color: var(--green-primary) !important;
+        color: white !important;
+    }
+
+    /* Sidebar button styling */
+    [data-testid="stSidebar"] .stButton > button {
+        background-color: #182235 !important;
+        color: var(--text-secondary) !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+    }
+
+    [data-testid="stSidebar"] .stButton > button:hover {
+        background-color: var(--green-primary) !important;
+        color: white !important;
+    }
+
+    /* Caption styling - FIX for dark background */
+    .stCaption {
+        color: var(--text-secondary) !important;
+    }
+
+    /* Headers */
+    h1 { color: var(--text-primary) !important; }
+    h2 { color: var(--text-primary) !important; }
+    h3 { color: var(--text-secondary) !important; }
+
+    /* Markdown text */
+    .stMarkdown p { color: var(--text-secondary) !important; }
+
+    /* Divider */
+    .stDivider { border-color: rgba(255,255,255,0.08) !important; }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Header with logo
 col1, col2 = st.columns([1, 5])
@@ -24,7 +98,7 @@ with col1:
 
 with col2:
     st.title("Jibarito")
-    st.caption("Agricultural Intelligence for the US Caribbean & Tropical Regions")
+    st.markdown('<p style="color: #CBD5E1; font-size: 0.875rem; margin-top: -0.5rem;">Agricultural Intelligence for the US Caribbean & Tropical Regions</p>', unsafe_allow_html=True)
 
 # Configuration
 AGENT_ENDPOINT = st.secrets.get("agent_endpoint", "")
