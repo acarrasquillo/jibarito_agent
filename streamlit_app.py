@@ -222,3 +222,34 @@ with st.sidebar:
     if st.button("Clear Chat History", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
+
+# Footer with data sources and attribution
+st.divider()
+
+footer_html = """
+<div style="margin-top: 3rem; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.08); text-align: center;">
+    <div style="margin-bottom: 2rem;">
+        <p style="color: #CBD5E1; font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.8;">
+            <strong style="color: #F8FAFC;">Data Sources</strong><br>
+            <a href="https://www.nass.usda.gov/Quick_Stats/" target="_blank" style="color: #1F6B3A; text-decoration: none;">USDA NASS Quick Stats</a> • Crop production statistics<br>
+            <a href="https://www.nass.usda.gov/AgCensus/" target="_blank" style="color: #1F6B3A; text-decoration: none;">USDA Census</a> • Farm operations and demographics<br>
+            <a href="https://cropgraph.com/" target="_blank" style="color: #1F6B3A; text-decoration: none;">CropGraph API</a> • Companion planting, rotation, spacing<br>
+            <a href="https://plants.sc.egov.usda.gov/" target="_blank" style="color: #1F6B3A; text-decoration: none;">USDA PLANTS Database</a> • Plant traits, hardiness zones
+        </p>
+    </div>
+
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08);">
+        <p style="color: #94A3B8; font-size: 0.75rem; margin-bottom: 1rem;">Powered by</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 1rem;">
+            <div style="flex: 1; max-width: 200px;">
+                <img src="app/static/images/logo-lockup-horizontal-white.png" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+        <p style="color: #64748B; font-size: 0.75rem; margin-top: 1rem;">
+            Neo4j AuraDB & Neo4j Aura Agent
+        </p>
+    </div>
+</div>
+"""
+
+st.markdown(footer_html, unsafe_allow_html=True)
